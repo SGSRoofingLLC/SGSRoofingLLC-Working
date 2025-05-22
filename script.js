@@ -27,25 +27,43 @@ window.addEventListener('scroll', () => {
 
 // Gallery functionality
 const galleryImages = [
+    '20230724_095628.jpg',
+    '20230724_130655.jpg',
+    '20230724_193025.jpg',
+    '20240713_114458.jpg',
+    '20240713_142205.jpg',
     'IMG_3592.JPG',
-    'IMG_3592.JPG', // You'll need to replace these with actual image paths
-    'IMG_3592.JPG',
-    'IMG_3592.JPG',
-    'IMG_3592.JPG',
-    'IMG_3592.JPG',
-    'IMG_3592.JPG',
-    'IMG_3592.JPG'
+    'IMG_3634.JPG',
+    'IMG_4066.JPG',
+    'IMG_4111.JPG',
+    'IMG_4084.JPG',
+    'Roof 2024 1.jpg',
+    'Roof 2024 2.jpg',
+    'Roof 2024 3.jpg',
+    'Roof 2024 5.jpg',
+    'Roof 2024 6.jpg',
+    'Roof 2024 7.jpg',
+    'Roof 2024 10.jpg'
 ];
 
 const galleryTitles = [
-    'Residential Roofing Project',
-    'Commercial Building Roof',
-    'Roof Repair Work',
-    'New Installation',
-    'Tile Roofing',
-    'Metal Roofing',
-    'Shingle Replacement',
-    'Emergency Repair'
+    'Professional Roofing Installation - July 2023',
+    'Residential Roof Completion - July 2023',
+    'Evening Project Completion - July 2023',
+    'Commercial Roofing Project - July 2024',
+    'Quality Workmanship - July 2024',
+    'Expert Installation Work',
+    'Premium Roofing Materials',
+    'Detailed Craftsmanship',
+    'Professional Results',
+    'Quality Roofing Solutions',
+    'Recent Roofing Project 2024',
+    'Residential Roofing Excellence',
+    'Modern Roofing Installation',
+    'Quality Roof Replacement',
+    'Professional Roofing Service',
+    'Expert Installation Team',
+    'Completed Roofing Project'
 ];
 
 let currentImageIndex = 0;
