@@ -3,287 +3,924 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGS Roofing LLC - Professional Roofing Services</title>
-    <link rel="stylesheet" href="style.css">
+    <title>SGS Roofing Website - Premium Roofing Services</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #201e1e;
+            --golden: #c8a561;
+            --golden-dark: #b8954f;
+            --text-light: #f5f3f1;
+            --white: #ffffff;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: var(--primary-dark);
+            overflow-x: hidden;
+        }
+
+        /* Curved decorative elements */
+        .curve-decoration {
+            position: absolute;
+            width: 200px;
+            height: 400px;
+            background: linear-gradient(45deg, var(--golden), var(--golden-dark));
+            border-radius: 50%;
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        .curve-left {
+            left: -100px;
+            top: 20%;
+            transform: rotate(-15deg);
+        }
+
+        .curve-right {
+            right: -100px;
+            bottom: 20%;
+            transform: rotate(-15deg);
+        }
+
+        /* Header */
+        header {
+            background: rgba(32, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid var(--golden);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--golden);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            font-weight: bold;
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: var(--primary-dark);
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 8px;
+            width: 8px;
+            height: 8px;
+            border: 2px solid var(--primary-dark);
+            border-radius: 2px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--golden);
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--golden);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--golden);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: 
+                radial-gradient(ellipse at top, rgba(200, 165, 97, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(200, 165, 97, 0.1) 0%, transparent 50%),
+                var(--primary-dark);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 3rem;
+            position: relative;
+            z-index: 10;
+            background: rgba(32, 30, 30, 0.8);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--golden);
+        }
+
+        .hero-logo {
+            width: 120px;
+            height: 120px;
+            background: var(--golden);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-logo::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 4px;
+            background: var(--primary-dark);
+        }
+
+        .hero-logo::after {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 25px;
+            width: 20px;
+            height: 20px;
+            border: 4px solid var(--primary-dark);
+            border-radius: 4px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--golden);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: rgba(245, 243, 241, 0.9);
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border: 2px solid var(--golden);
+            background: transparent;
+            color: var(--golden);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--golden);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn:hover {
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary {
+            background: var(--golden);
+            color: var(--primary-dark);
+        }
+
+        .btn-primary::before {
+            background: var(--primary-dark);
+        }
+
+        .btn-primary:hover {
+            color: var(--golden);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 0;
+            position: relative;
+            background: linear-gradient(135deg, rgba(32, 30, 30, 0.95), rgba(32, 30, 30, 0.98));
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--golden);
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: rgba(245, 243, 241, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .service-card {
+            background: rgba(200, 165, 97, 0.1);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(200, 165, 97, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--golden), var(--golden-dark));
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            background: rgba(200, 165, 97, 0.15);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--golden);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--golden);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--golden);
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .service-card p {
+            color: rgba(245, 243, 241, 0.9);
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            background: rgba(32, 30, 30, 0.98);
+            position: relative;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            color: var(--golden);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .about-text p {
+            color: rgba(245, 243, 241, 0.9);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(200, 165, 97, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(200, 165, 97, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+            background: rgba(200, 165, 97, 0.15);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--golden);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--golden);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(200, 165, 97, 0.2), rgba(32, 30, 30, 0.3));
+            z-index: 2;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary-dark), rgba(32, 30, 30, 0.95));
+            position: relative;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--golden);
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(200, 165, 97, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(200, 165, 97, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(200, 165, 97, 0.15);
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--golden);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+
+        .contact-form {
+            background: rgba(200, 165, 97, 0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(200, 165, 97, 0.3);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--golden);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid rgba(200, 165, 97, 0.3);
+            border-radius: 8px;
+            background: rgba(32, 30, 30, 0.8);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--golden);
+            background: rgba(32, 30, 30, 0.9);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 0;
+            border-top: 2px solid var(--golden);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(200, 165, 97, 0.1);
+            border: 1px solid rgba(200, 165, 97, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--golden);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--golden);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .curve-decoration {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* QR Code Style Section */
+        .qr-section {
+            padding: 4rem 0;
+            background: var(--primary-dark);
+            text-align: center;
+            position: relative;
+        }
+
+        .qr-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: rgba(200, 165, 97, 0.1);
+            border-radius: 20px;
+            border: 2px solid var(--golden);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: white;
+            margin: 0 auto 2rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            box-shadow: var(--shadow);
+        }
+
+        .qr-text {
+            color: var(--golden);
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .qr-subtitle {
+            color: rgba(245, 243, 241, 0.8);
+            font-size: 1.1rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <!-- Decorative curves -->
+    <div class="curve-decoration curve-left"></div>
+    <div class="curve-decoration curve-right"></div>
+
+    <!-- Header -->
+    <header>
         <div class="nav-container">
-            <div class="nav-logo">
-                <h2>SGS Roofing LLC</h2>
+            <div class="logo-container">
+                <div class="logo-icon">H</div>
+                <div class="logo-text">SGS ROOFING</div>
             </div>
-            <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#gallery" class="nav-link">Gallery</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <a href="#customer-service" class="nav-link">Customer Service</a>
-            </div>
-            <div class="hamburger" id="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">HOME</a></li>
+                    <li><a href="#services">SERVICES</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                </ul>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Professional Roofing Solutions</h1>
-            <p>SGS Roofing LLC - Your trusted partner for quality roofing services</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">Get Free Quote</a>
-                <a href="#gallery" class="btn btn-secondary">View Our Work</a>
+    <section class="hero" id="home">
+        <div class="hero-content fade-in">
+            <div class="hero-logo">H</div>
+            <h1>SGS ROOFING</h1>
+            <h2>WEBSITE</h2>
+            <p>Premium roofing solutions crafted with precision, dedication, and unmatched expertise. Your home's protection is our masterpiece.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-phone"></i>
+                    GET QUOTE
+                </a>
+                <a href="#services" class="btn">
+                    <i class="fas fa-tools"></i>
+                    OUR SERVICES
+                </a>
             </div>
         </div>
-        <div class="hero-overlay"></div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services">
+    <section class="services" id="services">
         <div class="container">
-            <h2 class="section-title">Our Services</h2>
+            <div class="section-title fade-in">
+                <h2>Premium Services</h2>
+                <p>Exceptional roofing solutions tailored to protect and enhance your property</p>
+            </div>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
-                        <i class="fas fa-home"></i>
+                        <i class="fas fa-hammer"></i>
                     </div>
-                    <h3>Residential Roofing</h3>
-                    <p>Complete roofing solutions for your home with quality materials and expert craftsmanship.</p>
+                    <h3>Roof Installation</h3>
+                    <p>Expert installation of premium roofing systems using the finest materials and time-tested techniques.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3>Commercial Roofing</h3>
-                    <p>Professional commercial roofing services for businesses and industrial properties.</p>
-                </div>
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <i class="fas fa-tools"></i>
                     </div>
-                    <h3>Roof Repairs</h3>
-                    <p>Quick and reliable roof repair services to protect your property from weather damage.</p>
+                    <h3>Roof Repair</h3>
+                    <p>Swift and reliable repair services to restore your roof's integrity and extend its lifespan.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Roof Replacement</h3>
+                    <p>Complete roof transformation with premium materials and comprehensive warranty protection.</p>
+                </div>
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <i class="fas fa-search"></i>
                     </div>
-                    <h3>Roof Inspections</h3>
-                    <p>Thorough roof inspections to identify potential issues before they become major problems.</p>
+                    <h3>Roof Inspection</h3>
+                    <p>Thorough professional assessments to identify potential issues before they become costly problems.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud-rain"></i>
+                    </div>
+                    <h3>Gutter Solutions</h3>
+                    <p>Complete gutter installation, repair, and maintenance to protect your property's foundation.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Emergency Services</h3>
+                    <p>24/7 emergency response for storm damage and urgent roofing repairs when you need us most.</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <h2 class="section-title">Our Work Gallery</h2>
-            <div class="gallery-grid" id="gallery-grid">
-                <!-- Gallery items will be loaded by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Modal -->
-    <div id="gallery-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-modal">&times;</span>
-            <img id="modal-image" src="" alt="">
-            <div class="modal-nav">
-                <button id="prev-btn" class="modal-btn">&larr;</button>
-                <button id="next-btn" class="modal-btn">&rarr;</button>
-            </div>
-        </div>
-    </div>
 
     <!-- About Section -->
-    <section id="about" class="about">
+    <section class="about" id="about">
         <div class="container">
             <div class="about-content">
-                <div class="about-text">
-                    <h2>About SGS Roofing LLC</h2>
-                    <p>With years of experience in the roofing industry, SGS Roofing LLC has built a reputation for excellence, reliability, and customer satisfaction. We specialize in both residential and commercial roofing projects, using only the highest quality materials and proven techniques.</p>
-                    <p>Our team of certified professionals is committed to delivering superior workmanship and outstanding customer service. From simple repairs to complete roof replacements, we handle every project with the same level of care and attention to detail.</p>
-                    <div class="about-features">
-                        <div class="feature">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Licensed & Insured</span>
+                <div class="about-text fade-in">
+                    <h2>Craftsmanship Excellence</h2>
+                    <p>For over two decades, SGS Roofing has established itself as the premier choice for discerning property owners who demand nothing but the finest in roofing craftsmanship.</p>
+                    <p>Our commitment to excellence extends beyond mere installation—we create lasting partnerships built on trust, quality, and unwavering dedication to protecting your most valuable investment.</p>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number">750+</span>
+                            <span class="stat-label">PROJECTS COMPLETED</span>
                         </div>
-                        <div class="feature">
-                            <i class="fas fa-award"></i>
-                            <span>Quality Guarantee</span>
+                        <div class="stat-card">
+                            <span class="stat-number">20+</span>
+                            <span class="stat-label">YEARS EXPERIENCE</span>
                         </div>
-                        <div class="feature">
-                            <i class="fas fa-clock"></i>
-                            <span>24/7 Emergency Service</span>
+                        <div class="stat-card">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">SATISFACTION RATE</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">EMERGENCY SERVICE</span>
                         </div>
                     </div>
                 </div>
-                <div class="about-image">
-                    <img src="IMG_3592.JPG" alt="SGS Roofing Team" loading="lazy">
+                <div class="about-image fade-in">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><rect fill='%23201e1e' width='400' height='400'/><polygon fill='%23c8a561' points='50,200 200,80 350,200 350,350 50,350'/><rect fill='%23b8954f' x='80' y='220' width='60' height='80'/><rect fill='%23c8a561' x='260' y='220' width='60' height='60'/><polygon fill='%23916d30' points='200,80 180,100 220,100'/><circle fill='%23c8a561' cx='200' cy='50' r='15'/></svg>" alt="Premium roofing craftsmanship">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Customer Service Section -->
-    <section id="customer-service" class="customer-service">
+    <!-- QR Code Section -->
+    <section class="qr-section">
         <div class="container">
-            <h2 class="section-title">Customer Service & Support</h2>
-            <div class="cs-grid">
-                <div class="cs-card">
-                    <div class="cs-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <h3>24/7 Support</h3>
-                    <p>Our customer service team is available around the clock to assist you with any questions or concerns.</p>
-                    <a href="tel:+1234567890" class="cs-link">Call Now</a>
+            <div class="qr-container fade-in">
+                <div class="qr-code">
+                    <i class="fas fa-qrcode" style="font-size: 4rem; color: #201e1e;"></i>
                 </div>
-                <div class="cs-card">
-                    <div class="cs-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>Live Chat</h3>
-                    <p>Get instant answers to your questions through our live chat support system.</p>
-                    <button class="cs-link" onclick="openChat()">Start Chat</button>
-                </div>
-                <div class="cs-card">
-                    <div class="cs-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h3>Email Support</h3>
-                    <p>Send us your questions via email and we'll respond within 24 hours.</p>
-                    <a href="mailto:support@sgsroofing.com" class="cs-link">Email Us</a>
-                </div>
+                <div class="qr-text">SCAN FOR INSTANT ACCESS</div>
+                <div class="qr-subtitle">Quick access to our services, portfolio, and contact information</div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
             <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <h3>Address</h3>
-                            <p>123 Main Street<br>Your City, State 12345</p>
-                        </div>
-                    </div>
+                <div class="contact-info fade-in">
+                    <h2>Get In Touch</h2>
+                    <p style="color: rgba(245, 243, 241, 0.8); margin-bottom: 3rem; font-size: 1.2rem;">Experience the difference of premium roofing services. Contact us for your complimentary consultation.</p>
+                    
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fas fa-phone"></i>
                         </div>
                         <div>
-                            <h3>Phone</h3>
-                            <p><a href="tel:+1234567890">(123) 456-7890</a></p>
+                            <strong style="color: var(--golden); font-size: 1.2rem;">PHONE</strong><br>
+                            <span style="font-size: 1.1rem;">(555) 123-ROOF (7663)</span>
                         </div>
                     </div>
+                    
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div>
-                            <h3>Email</h3>
-                            <p><a href="mailto:info@sgsroofing.com">info@sgsroofing.com</a></p>
+                            <strong style="color: var(--golden); font-size: 1.2rem;">EMAIL</strong><br>
+                            <span style="font-size: 1.1rem;">info@sgsroofing.com</span>
                         </div>
                     </div>
-                    <div class="social-links">
-                        <h3>Follow Us</h3>
-                        <div class="social-icons">
-                            <a href="#" class="social-link" aria-label="Facebook">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="social-link" aria-label="Twitter">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="social-link" aria-label="Instagram">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" class="social-link" aria-label="LinkedIn">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <strong style="color: var(--golden); font-size: 1.2rem;">SERVICE AREA</strong><br>
+                            <span style="font-size: 1.1rem;">Greater Metropolitan Region</span>
                         </div>
                     </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
                         </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="Your Phone">
-                        </div>
-                        <div class="form-group">
-                            <select id="service" name="service" required>
-                                <option value="">Select Service</option>
-                                <option value="residential">Residential Roofing</option>
-                                <option value="commercial">Commercial Roofing</option>
-                                <option value="repair">Roof Repair</option>
-                                <option value="inspection">Roof Inspection</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>SGS Roofing LLC</h3>
-                    <p>Your trusted partner for quality roofing services. Licensed, insured, and committed to excellence.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Services</h3>
-                    <ul>
-                        <li>Residential Roofing</li>
-                        <li>Commercial Roofing</li>
-                        <li>Roof Repairs</li>
-                        <li>Roof Inspections</li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
-                    <p><i class="fas fa-envelope"></i> info@sgsroofing.com</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 SGS Roofing LLC. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+                        <div>
+                            <strong style="color: var(--golden); font-size: 1.2rem;">HOURS</strong><br>
+                            <span style="font-size: 1
