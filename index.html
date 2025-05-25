@@ -407,10 +407,91 @@
             font-size: 1.1rem;
         }
 
+        /* Gallery Section */
+        .gallery {
+            padding: 6rem 0;
+            background: rgba(32, 30, 30, 0.98);
+            position: relative;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(200, 165, 97, 0.3);
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--golden);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(200, 165, 97, 0.3), rgba(32, 30, 30, 0.2));
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.7;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(32, 30, 30, 0.9));
+            color: var(--text-light);
+            padding: 2rem 1.5rem 1.5rem;
+            z-index: 3;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h3 {
+            color: var(--golden);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
         /* About Section */
         .about {
             padding: 6rem 0;
-            background: rgba(32, 30, 30, 0.98);
+            background: linear-gradient(135deg, rgba(32, 30, 30, 0.95), rgba(32, 30, 30, 0.98));
             position: relative;
         }
 
@@ -494,6 +575,90 @@
             width: 100%;
             height: 500px;
             object-fit: cover;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            padding: 6rem 0;
+            background: var(--primary-dark);
+            position: relative;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .review-card {
+            background: rgba(200, 165, 97, 0.1);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(200, 165, 97, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .review-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--golden);
+            opacity: 0.3;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            background: rgba(200, 165, 97, 0.15);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--golden);
+        }
+
+        .stars {
+            color: var(--golden);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            color: rgba(245, 243, 241, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--golden);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            font-weight: bold;
+        }
+
+        .reviewer-info h4 {
+            color: var(--golden);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .reviewer-info p {
+            color: rgba(245, 243, 241, 0.7);
+            font-size: 0.9rem;
         }
 
         /* Contact Section */
@@ -627,6 +792,7 @@
             color: var(--golden);
             font-size: 1.3rem;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .social-links a:hover {
@@ -671,6 +837,14 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Animations */
@@ -687,51 +861,6 @@
 
         .fade-in {
             animation: fadeInUp 0.8s ease forwards;
-        }
-
-        /* QR Code Style Section */
-        .qr-section {
-            padding: 4rem 0;
-            background: var(--primary-dark);
-            text-align: center;
-            position: relative;
-        }
-
-        .qr-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 3rem;
-            background: rgba(200, 165, 97, 0.1);
-            border-radius: 20px;
-            border: 2px solid var(--golden);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            background: white;
-            margin: 0 auto 2rem;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: var(--primary-dark);
-            box-shadow: var(--shadow);
-        }
-
-        .qr-text {
-            color: var(--golden);
-            font-size: 1.5rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-        }
-
-        .qr-subtitle {
-            color: rgba(245, 243, 241, 0.8);
-            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -751,7 +880,9 @@
                 <ul>
                     <li><a href="#home">HOME</a></li>
                     <li><a href="#services">SERVICES</a></li>
+                    <li><a href="#gallery">GALLERY</a></li>
                     <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#reviews">REVIEWS</a></li>
                     <li><a href="#contact">CONTACT</a></li>
                 </ul>
             </nav>
@@ -832,95 +963,13 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
         <div class="container">
-            <div class="about-content">
-                <div class="about-text fade-in">
-                    <h2>Craftsmanship Excellence</h2>
-                    <p>For over two decades, SGS Roofing has established itself as the premier choice for discerning property owners who demand nothing but the finest in roofing craftsmanship.</p>
-                    <p>Our commitment to excellence extends beyond mere installation—we create lasting partnerships built on trust, quality, and unwavering dedication to protecting your most valuable investment.</p>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <span class="stat-number">750+</span>
-                            <span class="stat-label">PROJECTS COMPLETED</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number">20+</span>
-                            <span class="stat-label">YEARS EXPERIENCE</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">SATISFACTION RATE</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">EMERGENCY SERVICE</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image fade-in">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><rect fill='%23201e1e' width='400' height='400'/><polygon fill='%23c8a561' points='50,200 200,80 350,200 350,350 50,350'/><rect fill='%23b8954f' x='80' y='220' width='60' height='80'/><rect fill='%23c8a561' x='260' y='220' width='60' height='60'/><polygon fill='%23916d30' points='200,80 180,100 220,100'/><circle fill='%23c8a561' cx='200' cy='50' r='15'/></svg>" alt="Premium roofing craftsmanship">
-                </div>
+            <div class="section-title fade-in">
+                <h2>Our Work Gallery</h2>
+                <p>Showcasing our finest roofing projects and craftsmanship excellence</p>
             </div>
-        </div>
-    </section>
-
-    <!-- QR Code Section -->
-    <section class="qr-section">
-        <div class="container">
-            <div class="qr-container fade-in">
-                <div class="qr-code">
-                    <i class="fas fa-qrcode" style="font-size: 4rem; color: #201e1e;"></i>
-                </div>
-                <div class="qr-text">SCAN FOR INSTANT ACCESS</div>
-                <div class="qr-subtitle">Quick access to our services, portfolio, and contact information</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="contact-content">
-                <div class="contact-info fade-in">
-                    <h2>Get In Touch</h2>
-                    <p style="color: rgba(245, 243, 241, 0.8); margin-bottom: 3rem; font-size: 1.2rem;">Experience the difference of premium roofing services. Contact us for your complimentary consultation.</p>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <strong style="color: var(--golden); font-size: 1.2rem;">PHONE</strong><br>
-                            <span style="font-size: 1.1rem;">(214) 758-9605 </span>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <strong style="color: var(--golden); font-size: 1.2rem;">EMAIL</strong><br>
-                            <span style="font-size: 1.1rem;">sgsroofingllc@gmail.com</span>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <strong style="color: var(--golden); font-size: 1.2rem;">SERVICE AREA</strong><br>
-                            <span style="font-size: 1.1rem;">Greater Metropolitan Region</span>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div>
-                            <strong style="color: var(--golden); font-size: 1.2rem;">HOURS 24/7 </strong><br>
-                            <span style="font-size: 1
+            <div class="gallery-grid">
+                <div class="gallery-item fade-in">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%23201e1e' width='400' height='300'/><polygon fill='%23c8a561' points='50,150 200,50 350,150 350,250 50,250'/><rect fill='%23b8954f' x='80' y='170' width='40' height='60'/><rect fill='%23c8a561' x='280' y='170' width='40' height='40'/><polygon fill='%23916d30' points='200,50 185,65 215,65
