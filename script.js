@@ -40,10 +40,25 @@ const galleryImages = [
     'Roof 2024 1.jpg',
     'Roof 2024 2.jpg',
     'Roof 2024 3.jpg',
+    'Roof 2024 4.jpg',
     'Roof 2024 5.jpg',
     'Roof 2024 6.jpg',
     'Roof 2024 7.jpg',
+    'Roof 2024 8.jpg',
+    'Roof 2024 9.jpg',
     'Roof 2024 10.jpg'
+    'Roof 2024 11.jpg',
+    'Roof 2024 12.jpg',
+    'Roof 2024 13.jpg',
+    'Roof 2024 14.jpg',
+    'Roof 2024 15.jpg',
+    'Roof 2024 16.jpg',
+    'Roof 2024 17.jpg',
+    'Roof 2024 18.jpg',
+    'Roof 2024 19.jpg',
+    'Roof 2024 20.jpg',
+    'Roof 2024 21.jpg',
+    'Roof 2024 22.jpg',
 ];
 
 const galleryTitles = [
