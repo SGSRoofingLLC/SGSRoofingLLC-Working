@@ -617,35 +617,36 @@
         <label for="message">Message</label>
         <textarea id="message" name="message" rows="5" required></textarea>
     </div>
-
-    <div class="form-group">
-        <label for="upload">Upload Photos (Optional)</label>
-        <input type="file" id="upload" name="upload">
-    </div>
-
-    <input type="hidden" name="_subject" value="New Roofing Quote Request">
-
     <button type="submit" class="btn btn-primary" style="width:100%;">
         <i class="fas fa-paper-plane"></i> Send Message
-    </button>
-</form>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
+                 <div class="footer-logo">
+                 <div class="logo-icon">H</div>
                 <div>
                     <div class="logo-text">SGS ROOFING</div>
                     <p style="color: rgba(245, 243, 241, 0.7); margin-top: 0.5rem;">&copy; 2024 SGS Roofing. All rights reserved.</p>
+                </div>
+             </div>
+             <div style="text-align: center;">
+                    <p style="color: rgba(245, 243, 241, 0.8); margin-bottom: 1rem;">&copy; 2024 SGS Roofing. All rights reserved.</p>
+                    <p style="color: rgba(245, 243, 241, 0.6); font-size: 0.9rem;">Licensed • Bonded • Insured</p>
                 </div>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
+                       </a>
                 </div>
             </div>
         </div>
@@ -690,15 +691,18 @@
         // Contact form handling
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
+             // Get form data
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
-            
+
+             // Simple validation
             if (!data.name || !data.email || !data.phone || !data.service) {
                 alert('Please fill in all required fields.');
                 return;
             }
-            
+
+            // Simulate form submission
             const button = this.querySelector('button[type="submit"]');
             const originalHTML = button.innerHTML;
             
@@ -726,6 +730,63 @@
 
         // Initialize gallery on page load
         document.addEventListener('DOMContentLoaded', loadGallery);
+        });
+                // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(32, 30, 30, 0.98)';
+            } else {
+                header.style.background = 'rgba(32, 30, 30, 0.95)';
+            }
+        });
+
+        // Add active state to navigation
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
