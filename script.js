@@ -25,60 +25,27 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Gallery functionality
+// Gallery functionality - FIXED: Added missing comma and updated image names
 const galleryImages = [
-    '20230724_095628.jpg',
-    '20230724_130655.jpg',
-    '20230724_193025.jpg',
-    '20240713_114458.jpg',
-    '20240713_142205.jpg',
-    'IMG_3592.JPG',
-    'IMG_3634.JPG',
-    'IMG_4066.JPG',
-    'IMG_4111.JPG',
-    'IMG_4084.JPG',
-    'Roof 2024 1.jpg',
-    'Roof 2024 2.jpg',
-    'Roof 2024 3.jpg',
-    'Roof 2024 4.jpg',
-    'Roof 2024 5.jpg',
-    'Roof 2024 6.jpg',
-    'Roof 2024 7.jpg',
-    'Roof 2024 8.jpg',
-    'Roof 2024 9.jpg',
-    'Roof 2024 10.jpg'
-    'Roof 2024 11.jpg',
-    'Roof 2024 12.jpg',
-    'Roof 2024 13.jpg',
-    'Roof 2024 14.jpg',
-    'Roof 2024 15.jpg',
-    'Roof 2024 16.jpg',
-    'Roof 2024 17.jpg',
-    'Roof 2024 18.jpg',
-    'Roof 2024 19.jpg',
-    'Roof 2024 20.jpg',
-    'Roof 2024 21.jpg',
-    'Roof 2024 22.jpg',
+    'roof-project-1.jpg',
+    'roof-project-2.jpg',
+    'roof-project-3.jpg',
+    'roof-project-4.jpg',
+    'roof-project-5.jpg',
+    'roof-project-6.jpg',
+    'roof-project-7.jpg',
+    'roof-project-8.jpg'
 ];
 
 const galleryTitles = [
-    'Professional Roofing Installation - July 2023',
-    'Residential Roof Completion - July 2023',
-    'Evening Project Completion - July 2023',
-    'Commercial Roofing Project - July 2024',
-    'Quality Workmanship - July 2024',
-    'Expert Installation Work',
-    'Premium Roofing Materials',
-    'Detailed Craftsmanship',
-    'Professional Results',
-    'Quality Roofing Solutions',
-    'Recent Roofing Project 2024',
-    'Residential Roofing Excellence',
-    'Modern Roofing Installation',
-    'Quality Roof Replacement',
-    'Professional Roofing Service',
-    'Expert Installation Team',
-    'Completed Roofing Project'
+    'Professional Roof Installation - Residential Project',
+    'Completed Roofing Project - Quality Craftsmanship',
+    'Residential Roofing Services',
+    'Full Service Roofing Team at Work',
+    'Two-Story Home Roof Replacement',
+    'Expert Roofing Installation in Progress',
+    'Professional Residential Roofing',
+    'Quality Roof Completion'
 ];
 
 let currentImageIndex = 0;
@@ -197,7 +164,6 @@ contactForm.addEventListener('submit', (e) => {
 
 // Notification system
 function showNotification(message, type = 'info') {
-    // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
@@ -208,7 +174,6 @@ function showNotification(message, type = 'info') {
         </div>
     `;
     
-    // Add styles
     notification.style.cssText = `
         position: fixed;
         top: 100px;
@@ -224,21 +189,17 @@ function showNotification(message, type = 'info') {
         max-width: 300px;
     `;
     
-    // Add to DOM
     document.body.appendChild(notification);
     
-    // Animate in
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
     
-    // Close functionality
     const closeBtn = notification.querySelector('.notification-close');
     closeBtn.addEventListener('click', () => {
         removeNotification(notification);
     });
     
-    // Auto close after 5 seconds
     setTimeout(() => {
         removeNotification(notification);
     }, 5000);
@@ -259,7 +220,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+            const offsetTop = target.offsetTop - 80;
             window.scrollTo({
                 top: offsetTop,
                 behavior: 'smooth'
@@ -312,24 +273,6 @@ window.addEventListener('scroll', throttle(() => {
     handleParallax();
 }, 10));
 
-// Live chat functionality (placeholder)
-function openChat() {
-    showNotification('Live chat feature coming soon! Please use our contact form or call us directly.', 'info');
-}
-
-// Add click-to-call functionality
-document.querySelectorAll('a[href^="tel:"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-        // For mobile devices, this will trigger the phone dialer
-        // For desktop, show a notification
-        if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
-            e.preventDefault();
-            const phoneNumber = link.getAttribute('href').replace('tel:', '');
-            showNotification(`Call us at ${phoneNumber}`, 'info');
-        }
-    });
-});
-
 // Form validation
 function validateForm() {
     const inputs = contactForm.querySelectorAll('input[required], select[required], textarea[required]');
@@ -343,7 +286,6 @@ function validateForm() {
             input.style.borderColor = '#e0e0e0';
         }
         
-        // Email validation
         if (input.type === 'email' && input.value) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(input.value)) {
@@ -382,67 +324,26 @@ const observer = new IntersectionObserver((entries) => {
 
 // Loading and initialization
 document.addEventListener('DOMContentLoaded', () => {
-    // Load gallery
     loadGallery();
     
-    // Initialize animations
     setTimeout(() => {
         document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
         });
     }, 100);
     
-    // Add fade-in class to animated elements
     const animatedElements = document.querySelectorAll('.service-card, .gallery-item, .cs-card, .about-text, .about-image');
     animatedElements.forEach(el => {
         el.classList.add('fade-in');
     });
     
-    // Initial scroll check
     handleScrollAnimations();
     
-    // Preload images
     galleryImages.forEach(src => {
         const img = new Image();
         img.src = src;
     });
 });
-
-// Service worker registration (for offline functionality)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('ServiceWorker registration successful');
-            })
-            .catch(error => {
-                console.log('ServiceWorker registration failed');
-            });
-    });
-}
-
-// Performance optimization: Lazy loading for images
-function lazyLoadImages() {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src || img.src;
-                    img.classList.remove('lazy');
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-        
-        images.forEach(img => imageObserver.observe(img));
-    }
-}
-
-// Initialize lazy loading
-lazyLoadImages();
 
 // Error handling for images
 document.addEventListener('error', (e) => {
@@ -492,18 +393,15 @@ window.addEventListener('scroll', () => {
 
 // Analytics tracking (placeholder)
 function trackEvent(category, action, label) {
-    // Add your analytics tracking code here (Google Analytics, etc.)
     console.log('Event tracked:', { category, action, label });
 }
 
-// Track button clicks
 document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('click', () => {
         trackEvent('Button', 'Click', btn.textContent);
     });
 });
 
-// Track form submissions
 contactForm.addEventListener('submit', () => {
     trackEvent('Form', 'Submit', 'Contact Form');
 });
