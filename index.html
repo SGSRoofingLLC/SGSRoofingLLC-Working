@@ -1,407 +1,638 @@
-// Mobile Navigation Toggle
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('nav-menu');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
-
-// Navbar scroll effect
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
-
-// Gallery functionality - Updated with actual image names
-const galleryImages = [
-    'roof-project-1.jpg',    // Brick house with new roof installation
-    'roof-project-2.jpg',    // Completed residential roof
-    'roof-project-3.jpg',    // Side view of roofing work
-    'roof-project-4.jpg',    // Active roofing crew with trucks
-    'roof-project-5.jpg',    // Two-story home roof installation
-    'roof-project-6.jpg',    // Roofing team at work
-    'roof-project-7.jpg',    // Residential roof repair
-    'roof-project-8.jpg'     // Finished roof project
-];
-
-const galleryTitles = [
-    'Professional Roof Installation - Residential Project',
-    'Completed Roofing Project - Quality Craftsmanship',
-    'Residential Roofing Services',
-    'Full Service Roofing Team at Work',
-    'Two-Story Home Roof Replacement',
-    'Expert Roofing Installation in Progress',
-    'Professional Residential Roofing',
-    'Quality Roof Completion'
-];
-
-let currentImageIndex = 0;
-
-// Load gallery images
-function loadGallery() {
-    const galleryGrid = document.getElementById('gallery-grid');
-    
-    galleryImages.forEach((image, index) => {
-        const galleryItem = document.createElement('div');
-        galleryItem.className = 'gallery-item fade-in';
-        galleryItem.innerHTML = `
-            <img src="${image}" alt="${galleryTitles[index]}" loading="lazy">
-            <div class="gallery-overlay">
-                <i class="fas fa-search-plus"></i>
-            </div>
-        `;
-        
-        galleryItem.addEventListener('click', () => {
-            openModal(index);
-        });
-        
-        galleryGrid.appendChild(galleryItem);
-    });
-}
-
-// Modal functionality
-const modal = document.getElementById('gallery-modal');
-const modalImage = document.getElementById('modal-image');
-const closeModal = document.getElementById('close-modal');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
-
-function openModal(index) {
-    currentImageIndex = index;
-    modal.style.display = 'block';
-    modalImage.src = galleryImages[index];
-    modalImage.alt = galleryTitles[index];
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModalFunction() {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-function showPrevImage() {
-    currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
-    modalImage.src = galleryImages[currentImageIndex];
-    modalImage.alt = galleryTitles[currentImageIndex];
-}
-
-function showNextImage() {
-    currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-    modalImage.src = galleryImages[currentImageIndex];
-    modalImage.alt = galleryTitles[currentImageIndex];
-}
-
-// Modal event listeners
-closeModal.addEventListener('click', closeModalFunction);
-prevBtn.addEventListener('click', showPrevImage);
-nextBtn.addEventListener('click', showNextImage);
-
-// Close modal when clicking outside the image
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        closeModalFunction();
-    }
-});
-
-// Keyboard navigation for modal
-document.addEventListener('keydown', (e) => {
-    if (modal.style.display === 'block') {
-        switch(e.key) {
-            case 'Escape':
-                closeModalFunction();
-                break;
-            case 'ArrowLeft':
-                showPrevImage();
-                break;
-            case 'ArrowRight':
-                showNextImage();
-                break;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGS Roofing Website - Premium Roofing Services</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
-});
 
-// Contact form handling
-const contactForm = document.getElementById('contact-form');
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
-    
-    // Show loading state
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.innerHTML = '<span class="loading"></span> Sending...';
-    submitBtn.disabled = true;
-    
-    // Simulate form submission (replace with actual form handling)
-    setTimeout(() => {
-        // Reset form
-        contactForm.reset();
-        
-        // Show success message
-        showNotification('Message sent successfully! We\'ll get back to you soon.', 'success');
-        
-        // Reset button
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }, 2000);
-});
-
-// Notification system
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
-            <span>${message}</span>
-            <button class="notification-close">&times;</button>
-        </div>
-    `;
-    
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: ${type === 'success' ? '#4CAF50' : '#2196F3'};
-        color: white;
-        padding: 15px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        z-index: 2000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        max-width: 300px;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    const closeBtn = notification.querySelector('.notification-close');
-    closeBtn.addEventListener('click', () => {
-        removeNotification(notification);
-    });
-    
-    setTimeout(() => {
-        removeNotification(notification);
-    }, 5000);
-}
-
-function removeNotification(notification) {
-    notification.style.transform = 'translateX(100%)';
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
+        :root {
+            --primary-dark: #201e1e;
+            --golden: #c8a561;
+            --golden-dark: #b8954f;
+            --text-light: #f5f3f1;
+            --white: #ffffff;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
-    }, 300);
-}
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offsetTop = target.offsetTop - 80;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: var(--primary-dark);
+            overflow-x: hidden;
         }
-    });
-});
 
-// Scroll animations
-function handleScrollAnimations() {
-    const elements = document.querySelectorAll('.fade-in');
-    
-    elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < window.innerHeight - elementVisible) {
-            element.classList.add('visible');
+        /* Header */
+        header {
+            background: rgba(32, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid var(--golden);
         }
-    });
-}
 
-// Parallax effect for hero section
-function handleParallax() {
-    const hero = document.querySelector('.hero');
-    const scrolled = window.pageYOffset;
-    const rate = scrolled * -0.5;
-    
-    if (hero) {
-        hero.style.backgroundPosition = `center ${rate}px`;
-    }
-}
-
-// Throttle function for performance
-function throttle(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Scroll event listeners
-window.addEventListener('scroll', throttle(() => {
-    handleScrollAnimations();
-    handleParallax();
-}, 10));
-
-// Form validation
-function validateForm() {
-    const inputs = contactForm.querySelectorAll('input[required], select[required], textarea[required]');
-    let isValid = true;
-    
-    inputs.forEach(input => {
-        if (!input.value.trim()) {
-            input.style.borderColor = '#e74c3c';
-            isValid = false;
-        } else {
-            input.style.borderColor = '#e0e0e0';
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
         }
-        
-        if (input.type === 'email' && input.value) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(input.value)) {
-                input.style.borderColor = '#e74c3c';
-                isValid = false;
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--golden);
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--golden);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: 
+                radial-gradient(ellipse at top, rgba(200, 165, 97, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(200, 165, 97, 0.1) 0%, transparent 50%),
+                var(--primary-dark);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 3rem;
+            position: relative;
+            z-index: 10;
+            background: rgba(32, 30, 30, 0.8);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--golden);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--golden);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: rgba(245, 243, 241, 0.9);
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border: 2px solid var(--golden);
+            background: transparent;
+            color: var(--golden);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn:hover {
+            background: var(--golden);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--golden);
+            color: var(--primary-dark);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 0;
+            position: relative;
+            background: linear-gradient(135deg, rgba(32, 30, 30, 0.95), rgba(32, 30, 30, 0.98));
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--golden);
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: rgba(245, 243, 241, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .service-card {
+            background: rgba(200, 165, 97, 0.1);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(200, 165, 97, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            background: rgba(200, 165, 97, 0.15);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--golden);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--golden);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            color: var(--primary-dark);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--golden);
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .service-card p {
+            color: rgba(245, 243, 241, 0.9);
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 6rem 0;
+            background: rgba(32, 30, 30, 0.98);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(200, 165, 97, 0.3);
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--golden);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary-dark), rgba(32, 30, 30, 0.95));
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--golden);
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(200, 165, 97, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(200, 165, 97, 0.3);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--golden);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+
+        .contact-form {
+            background: rgba(200, 165, 97, 0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(200, 165, 97, 0.3);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--golden);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid rgba(200, 165, 97, 0.3);
+            border-radius: 8px;
+            background: rgba(32, 30, 30, 0.8);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--golden);
+            background: rgba(32, 30, 30, 0.9);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4CAF50;
+            color: #4CAF50;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 0;
+            border-top: 2px solid var(--golden);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(200, 165, 97, 0.1);
+            border: 1px solid rgba(200, 165, 97, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--golden);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--golden);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
             }
         }
-    });
-    
-    return isValid;
-}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <div class="logo-text">SGS ROOFING</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">HOME</a></li>
+                    <li><a href="#services">SERVICES</a></li>
+                    <li><a href="#gallery">GALLERY</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-// Add real-time form validation
-contactForm.querySelectorAll('input, select, textarea').forEach(input => {
-    input.addEventListener('blur', validateForm);
-    input.addEventListener('input', () => {
-        if (input.style.borderColor === 'rgb(231, 76, 60)') {
-            input.style.borderColor = '#e0e0e0';
-        }
-    });
-});
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>SGS ROOFING</h1>
+            <h2>WEBSITE</h2>
+            <p>Premium roofing solutions crafted with precision, dedication, and unmatched expertise. Your home's protection is our masterpiece.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-phone"></i>
+                    GET QUOTE
+                </a>
+                <a href="#services" class="btn">
+                    <i class="fas fa-tools"></i>
+                    OUR SERVICES
+                </a>
+            </div>
+        </div>
+    </section>
 
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Premium Services</h2>
+                <p>Exceptional roofing solutions tailored to protect and enhance your property</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <h3>Roof Installation</h3>
+                    <p>Expert installation of premium roofing systems using the finest materials and time-tested techniques.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Roof Repair</h3>
+                    <p>Swift and reliable repair services to restore your roof's integrity and extend its lifespan.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Roof Replacement</h3>
+                    <p>Complete roof transformation with premium materials and comprehensive warranty protection.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Roof Inspection</h3>
+                    <p>Thorough professional assessments to identify potential issues before they become costly problems.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud-rain"></i>
+                    </div>
+                    <h3>Gutter Solutions</h3>
+                    <p>Complete gutter installation, repair, and maintenance to protect your property's foundation.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Emergency Services</h3>
+                    <p>24/7 emergency response for storm damage and urgent roofing repairs when you need us most.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Work Gallery</h2>
+                <p>Showcasing our finest roofing projects and craftsmanship excellence</p>
+            </div>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Images will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
 
-// Loading and initialization
-document.addEventListener('DOMContentLoaded', () => {
-    loadGallery();
-    
-    setTimeout(() => {
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-    }, 100);
-    
-    const animatedElements = document.querySelectorAll('.service-card, .gallery-item, .cs-card, .about-text, .about-image');
-    animatedElements.forEach(el => {
-        el.classList.add('fade-in');
-    });
-    
-    handleScrollAnimations();
-    
-    galleryImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
-    });
-});
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    <p style="color: rgba(245, 243, 241, 0.9); font-size: 1.2rem; margin-bottom: 3rem;">Ready to protect your property with premium roofing solutions? Contact us today for a free consultation.</p>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--golden); margin-bottom: 0.5rem;">Call Us</h3>
+                            <p style="color: rgba(245, 243, 241, 0.9);"><a href="tel:+12147589605" style="color: rgba(245, 243, 241, 0.9); text-decoration: none;">(214) 758-9605</a></p>
+                        </div>
+                    </div>
 
-// Error handling for images
-document.addEventListener('error', (e) => {
-    if (e.target.tagName === 'IMG') {
-        e.target.style.display = 'none';
-        console.log('Image failed to load:', e.target.src);
-    }
-}, true);
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--golden); margin-bottom: 0.5rem;">Email Us</h3>
+                            <p style="color: rgba(245, 243, 241, 0.9);"><a href="mailto:sgsroofingllc@gmail.com" style="color: rgba(245, 243, 241, 0.9); text-decoration: none;">sgsroofingllc@gmail.com</a></p>
+                        </div>
+                    </div>
 
-// Back to top functionality
-const backToTopBtn = document.createElement('button');
-backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-backToTopBtn.className = 'back-to-top';
-backToTopBtn.style.cssText = `
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: #916d30;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    font-size: 18px;
-`;
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--golden); margin-bottom: 0.5rem;">Business Hours</h3>
+                            <p style="color: rgba(245, 243, 241, 0.9);">Mon-Fri: 7AM-6PM<br>Emergency: 24/7</p>
+                        </div>
+                    </div>
+                </div>
 
-document.body.appendChild(backToTopBtn);
-
-backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-        backToTopBtn.style.opacity = '1';
-        backToTopBtn.style.visibility = 'visible';
-    } else {
-        backToTopBtn.style.opacity = '0';
-        backToTopBtn.style.visibility = 'hidden';
-    }
-});
-
-// Analytics tracking (placeholder)
-function trackEvent(category, action, label) {
-    console.log('Event tracked:', { category, action, label });
-}
-
-document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        trackEvent('Button', 'Click', btn.textContent);
-    });
-});
-
-contactForm.addEventListener('submit', () => {
-    trackEvent('Form', 'Submit', 'Contact Form');
-});
+                <div class="contact-form">
+                    <div class="success-message" id="success-message">
+                        <i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. We'll contact you within 24 hours.
+                    </div>
+                    
+                    <form action="https://formspree.io/f/meojbjyy" method="POST" id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Needed</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a Service</option>
+                                <option value="Roof Installation">Roof Installation</option>
+                                <option value="Roof Repair">Roof Repair</option>
+                                <option value="Roof Replacement">Roof Replacement</option>
+                                <option value="Roof Inspection">Roof Inspection</option>
+                                <option value="Gutter Services">Gutter Services</option>
+                                <option value="Emergency Service">Emergency Service</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell us about your roofing needs..." required></textarea>
+                        </div>
+                        
+                        <!-- Hidden fields for better email formatting -->
+                        <input type="
