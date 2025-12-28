@@ -133,11 +133,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Contact form handling
-const contactForm = document.getElementById('contact-form');
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
     // Get form data
     const formData = new FormData(contactForm);
     const data = Object.fromEntries(formData);
